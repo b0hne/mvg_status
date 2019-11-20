@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 from mvg_api import *
 from tkinter import *
 
@@ -8,7 +8,7 @@ COLOR_R = "pale green"
 # retreave departures for Garching
 def get_Garching():
     # 490 == get_id_for_station("Garching Zentrum")
-    gz = Station("490")
+    gz = Station(get_id_for_station("Garching Zentrum"))
     gzf_dp = []
     gzm_dp = []
 
@@ -28,7 +28,7 @@ def get_Garching():
 # retreave departures for Garching
 def get_Stieglitz():
 # 2026 == get_id_for_station("Lehrer Stieglitz Str")
-    ls = Station(2026)
+    ls = Station(get_id_for_station("Lehrer Stieglitz Str"))
     ls_dp = ['']*4
     j = 0
     for departure in ls.get_departures():
@@ -40,9 +40,9 @@ def get_Stieglitz():
 
 root = Tk()
 # switch out for rearranging on smaller displays
-# root.geometry("320x240")
+root.geometry("320x240")
 root.config(cursor="none")
-root.attributes('-fullscreen', True)
+# root.attributes('-fullscreen', True)
 frame = Frame(root)
 frame.grid()
 root.title("departures")
@@ -66,7 +66,7 @@ def fill():
         frame0 = Frame(root, bg=COLOR_L)
         frame0.grid(row = 0, column = 0, rowspan = 3, columnspan = 3, sticky = N+S+W+E)
 
-        title0 = Label(frame0, text="U6", font=("Courier 16 bold"), bg=COLOR_L)
+        title0 = Label(frame0, text="\nU6", font=("Courier 16 bold"), bg=COLOR_L)
         title0.pack(expand=YES, anchor=N)
         title00 = Label(frame0, text="-> Campus", font=("Courier 9 bold"), bg=COLOR_L)
         title00.pack(expand=YES, anchor=N)
@@ -78,6 +78,7 @@ def fill():
         frame1 = Frame(root, bg=COLOR_L)
         frame1.grid(row = 3, column = 0, rowspan = 3, columnspan = 3, sticky = N+S+W+E)
         title01 = Label(frame1, text="-> München", font=("Courier 9 bold"), bg=COLOR_L)
+
         title01.pack(expand=YES, anchor=N)
         departure1_0 = Label(frame1, text=dpg[2], bg=COLOR_L)
         departure1_0.pack(expand=YES, anchor=N)
@@ -91,15 +92,15 @@ def fill():
         dps = dps_new
         frame2 = Frame(root, bg=COLOR_R)
         frame2.grid(row = 0, column = 3, rowspan = 6, columnspan = 3, sticky = W+E+N+S)
-        title2 = Label(frame2, text="Lehrer Stieglitz",font=("Courier 16 bold"), bg=COLOR_R)
+        title2 = Label(frame2, text=str(datetime.datetime.now().time())[:5] + "\nLehrer Stieglitz" ,font=("Courier 16 bold"), bg=COLOR_R)
         title2.pack(expand=YES, anchor=N)
-        departure2_0 = Label(frame2, text=dps[0], bg=COLOR_R)
+        departure2_0 = Label(frame2, text=dps[0], bg=COLOR_R, anchor='w')
         departure2_0.pack(expand=YES)
-        departure2_1 = Label(frame2, text=dps[1], bg=COLOR_R)
+        departure2_1 = Label(frame2, text=dps[1], bg=COLOR_R, anchor='w')
         departure2_1.pack(expand=YES)
-        departure2_2 = Label(frame2, text=dps[2], bg=COLOR_R)
+        departure2_2 = Label(frame2, text=dps[2], bg=COLOR_R, anchor='w')
         departure2_2.pack(expand=YES)
-        departure2_3 = Label(frame2, text=dps[3], bg=COLOR_R)
+        departure2_3 = Label(frame2, text=dps[3], bg=COLOR_R, anchor='w')
         departure2_3.pack(expand=YES)
     # refresh every 15 Seconds
     frame.after(15000,fill)
