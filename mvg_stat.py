@@ -7,14 +7,14 @@ COLOR_R = "pale green"
 
 # retreave departures for Garching
 def get_Garching():
-    # 490 == get_id_for_station("Garching Zentrum")
-    gz = Station(get_id_for_station("Garching Zentrum"))
+    gz = Station(get_id_for_station("Garching"))
     gzf_dp = []
     gzm_dp = []
 
     for departure in gz.get_departures():
+        print(departure['destination'])
         if(departure['product'] == 'UBAHN' and (len(gzf_dp) + len(gzm_dp)!= 4)):
-            if(departure['destination'][:3] == 'Gar'):
+            if(departure['destination'][0] == 'G'):
                 if(len(gzf_dp)<2):
                     gzf_dp.append("\rin " + str(departure['departureTimeMinutes']) + ' min')
             elif(len(gzm_dp)<2):
@@ -27,7 +27,6 @@ def get_Garching():
 
 # retreave departures for Garching
 def get_Stieglitz():
-# 2026 == get_id_for_station("Lehrer Stieglitz Str")
     ls = Station(get_id_for_station("Lehrer Stieglitz Str"))
     ls_dp = ['']*4
     j = 0
