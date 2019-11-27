@@ -12,7 +12,6 @@ def get_Garching():
     gzm_dp = []
 
     for departure in gz.get_departures():
-        print(departure['destination'])
         if(departure['product'] == 'UBAHN' and (len(gzf_dp) + len(gzm_dp)!= 4)):
             if(departure['destination'][0] == 'G'):
                 if(len(gzf_dp)<2):
