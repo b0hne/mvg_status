@@ -19,7 +19,7 @@ def get_garching():
     gzm_dp = []
 
     for departure in gz.get_departures():
-        if(departure['product'] == 'UBAHN' and len(gzf_dp) + len(gzm_dp != 4)):
+        if(departure['product'] == 'UBAHN' and len(gzf_dp) + len(gzm_dp) != 4):
             if departure['destination'][0] == 'G':
                 if len(gzf_dp) < 2:
                     gzf_dp.append("\rin " + str(departure['departureTimeMinutes']) + ' min')
@@ -49,7 +49,7 @@ def fill():
     '''
     creates and regularly updates interface
     '''
-
+    # fill Garching
     dpg_new = get_garching()
     global dpg
     if dpg != dpg_new:
