@@ -119,6 +119,6 @@ for c in range(6):
 dpg = ['']*4
 dps = ['']*4
 
-
+#launch
 fill()
 root.mainloop()
