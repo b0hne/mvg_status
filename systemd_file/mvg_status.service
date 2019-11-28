@@ -1,0 +1,16 @@
+[Unit]
+Description=Start mvg_stat
+
+[Service]
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+User=pi
+ExecStart=/usr/bin/python3 /usr/local/bin/mvg_stat.py
+Restart=always
+RestartSec=10s
+KillMode=process
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target
+
