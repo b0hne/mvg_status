@@ -8,6 +8,7 @@ Environment=XAUTHORITY=/home/pi/.Xauthority
 User=pi
 # set location
 ExecStart=/usr/bin/python3 /usr/local/bin/mvg_stat.py
+RuntimeMaxSec=7200
 Restart=always
 RestartSec=10s
 KillMode=process
