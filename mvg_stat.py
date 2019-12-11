@@ -4,7 +4,7 @@ displays the departures at Garching and Lehrer Stieglitz Str
 '''
 from tkinter import Tk, Frame, Label, YES, N, E, S, W
 import datetime
-from mvg_api import Station, get_id_for_station
+from mvg_api import get_id_for_station, get_departures
 from eventlet import Timeout
 
 COLOR_L = "sky blue"
@@ -23,15 +23,18 @@ def get_garching():
     departures = None
     with Timeout(5, False):
         try:
-            departures = Station(get_id_for_station("Garching"))
-        except:
+            station_int = int(get_id_for_station("Garching")[-3:])
+            departures = get_departures(station_int)
+        except Exception as e:
+            print('exeption: ')
+            print(e)
             return [' ']*4
     if departures is None:
         return [' ']*4
     towards_garching = []
     towards_munich = []
 
-    for departure in departures.get_departures():
+    for departure in departures:
         if(departure['product'] == 'UBAHN' and len(towards_garching) + len(towards_munich) != 4):
             if departure['destination'][0] == 'G':
                 if len(towards_garching) < 2:
@@ -52,7 +55,8 @@ def get_stieglitz():
     departures = None
     with Timeout(5, False):
         try:
-            departures = Station(get_id_for_station("Lehrer Stieglitz Str"))
+            station_int = int(get_id_for_station("Lehrer Stieglitz Str")[-4:])
+            departures = get_departures(station_int)
         except:
             return [' ']*4
     if departures is None:
@@ -60,7 +64,7 @@ def get_stieglitz():
 
     stieglitz_str = ['']*4
     j = 0
-    for departure in departures.get_departures():
+    for departure in departures:
         if j < 4:
             stieglitz_str[j] = (
                 departure['label'] + " " + departure['destination']
